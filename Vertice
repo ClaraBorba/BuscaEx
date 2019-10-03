@@ -1,0 +1,24 @@
+public class Vertice {
+    private int numero;
+    private int peso;
+
+    public Vertice(int numero) {
+        this.numero = numero;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public int getPeso() {
+        return peso;
+    }
+
+    public void setPeso(int peso) {
+        this.peso = peso;
+    }
+}
