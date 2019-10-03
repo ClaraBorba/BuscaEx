@@ -1,0 +1,85 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ListaAdjacente {
+    private String nomeArq;
+    private List<List<Vertice>> lista;
+    private Vertice vertice;
+    private int tamanho;
+
+    public ListaAdjacente(String nomeArq) throws IOException{
+        this.nomeArq = nomeArq;
+        confirmaArq();
+        listando();
+        printLista();
+    }
+
+
+    public List<List<Vertice>> getLista() {
+        return lista;
+    }
+
+    public int numeroV() {
+        return tamanho;
+    }
+
+    private void confirmaArq() throws IOException {
+        File arq = new File(nomeArq);
+        if(!arq.exists()) {
+            throw new IOException("Arquivo não existente");
+        }
+    }
+
+    private void inicializa(int tamanho) {
+        lista = new ArrayList<>(tamanho);
+        for(int i = 0; i < tamanho; i++) {
+            lista.add(i, new ArrayList<Vertice>());
+        }
+    }
+
+    public Vertice getPrimeiroVertice() {
+        return lista.get(1).get(2);
+    }
+
+    private void listando() {
+        String linha;
+        int valor;
+        int x = 0 , i = 0;
+
+        try(BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(nomeArq)))) {
+            Scanner s;
+            s = new Scanner(bf.readLine());
+            tamanho = s.nextInt();
+            inicializa(tamanho);
+            while ((linha = bf.readLine()) != null) {
+                s = new Scanner(linha);
+                while (s.hasNext()) {
+                    valor = s.nextInt();
+                    if (valor != -1) {
+                        vertice = new Vertice(valor);
+                        lista.get(x).add(vertice);
+                    }
+                }
+                x++;
+            }
+
+        } catch(EOFException e1) { // faz nada }
+        } catch (IOException e) {
+            System.out.println("O Arquivo não conseguiu ser lido.");
+        }
+    }
+
+    private void printLista() {
+        for(List<Vertice> l : lista) {
+            System.out.print("v[]: ");
+            for(Vertice i : l) {
+                System.out.print(i.getNumero()+" ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+
