@@ -1,0 +1,13 @@
+import java.io.IOException;
+
+public class Main {
+    public static void main(String [] args) {
+        try{
+            ListaAdjacente lista = new ListaAdjacente(args[0]);
+            BuscaEmExtensao busca = new BuscaEmExtensao(lista);
+            busca.busca(lista.getPrimeiroVertice());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
